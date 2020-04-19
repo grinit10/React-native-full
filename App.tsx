@@ -1,36 +1,35 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList } from 'react-native';
 import { Goal } from './Goal.model';
+import GoalItem from './components/GoalItem';
+import GoalInput from './components/GoalInput';
 
 export default function App() {
   const initialCourses: Goal[] = [];
-  const [enteredGoal, setenteredGoal] = useState('');
   const [courseGoals, setcourseGoals] = useState(initialCourses);
+  const [isAddMode, setIsAddMode] = useState(false);
 
-  const goalInputHandler = (txt: string) => setenteredGoal(txt);
 
-  const addGoalHandler = () => setcourseGoals((currentGoals: Goal[]) => [...currentGoals, {key: Math.random().toString(), value: enteredGoal}])
+  const addGoalHandler = (enteredGoal: string) => {
+    setcourseGoals((currentGoals: Goal[]) => [...currentGoals, { key: Math.random().toString(), value: enteredGoal }]);
+    setIsAddMode(false);
+  }
+
+  const deleteGoalHandler = (key: string) => setcourseGoals((currentGoals: Goal[]) => currentGoals.filter(x => x.key !== key))
+
+  const closeModal = () => setIsAddMode(false)
 
   return (
     <View style={styles.screen}>
-      <View style={styles.inputContainer}>
-        <TextInput placeholder='Course goal'
-          style={styles.input}
-          value={enteredGoal}
-          onChangeText={goalInputHandler}></TextInput>
-        <Button title='Add' onPress={addGoalHandler}></Button>
-      </View>
+      <Button title='Add new goal' onPress={() => setIsAddMode(true)}></Button>
+      <GoalInput visible = {isAddMode} onAddGoalHandler = {addGoalHandler} onCloseModal = {closeModal}/>
       {/* <ScrollView>
         {courseGoals.map(goal =>
           <View key={goal} style={styles.listItem}>
             <Text>{goal}</Text>
           </View>)}
       </ScrollView> */}
-      <FlatList data={courseGoals} renderItem = {goal =>
-        <View style={styles.listItem}>
-        <Text>{goal.item.value}</Text>
-      </View>
-      }/>
+      <FlatList data={courseGoals} renderItem={goal => <GoalItem goal= {goal.item} onDelete = {deleteGoalHandler}/>} />
     </View>
   );
 }
