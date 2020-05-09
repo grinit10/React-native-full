@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Button, Modal } from 'react-native';
 
 const GoalInput = (props: any) => {
-    const [enteredGoal, setenteredGoal] = useState('');
-    const goalInputHandler = (txt: string) => setenteredGoal(txt);
+    const [enteredGoal, setEnteredGoal] = useState('');
+    const goalInputHandler = (txt: string) => setEnteredGoal(txt);
 
     const addGoalHandler = () => {
         props.onAddGoalHandler(enteredGoal);
-        setenteredGoal('');
+        setEnteredGoal('');
     }
 
     const closeModal = () => {
-        setenteredGoal('');
+        setEnteredGoal('');
         props.onCloseModal();
     }
 
