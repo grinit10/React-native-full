@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import ComponentScreen from './screens/ComponentScreen';
 
 export default function App() {
-  const [outputText, setOutputText] = useState('Open up App.tsx to start working on your app !');
+  const [] = useState('Open up App.tsx to start working on your app !');
   return (
     <View style={styles.container}>
-      <Text>{outputText}</Text>
-      <Button title='Change text' onPress={() => setOutputText('Changed Text')}/>
+      <ComponentScreen></ComponentScreen>
     </View>
   );
 }
