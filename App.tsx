@@ -1,13 +1,21 @@
 import React, {useState} from 'react';
 import { StyleSheet, View } from 'react-native';
-import ComponentScreen from './screens/ComponentScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './screens/HomeScreen';
+import LayoutScreen from './screens/LayoutScreen';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   const [] = useState('Open up App.tsx to start working on your app !');
   return (
-    <View style={styles.container}>
-      <ComponentScreen></ComponentScreen>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Layout" component={LayoutScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
